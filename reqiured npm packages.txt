@@ -1,0 +1,4 @@
+npm create vite@latest ClientApp --template react
+
+dotnet add package Microsoft.AspNetCore.SpaServices.Extensions
+dotnet add package Microsoft.AspNetCore.SpaServices.Extensions.Proxy

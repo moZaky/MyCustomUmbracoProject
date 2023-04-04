@@ -6,6 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+  		<PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="3.1.32" />
+
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="7.0.4" />
     <PackageReference Include="Umbraco.Cms" Version="11.0.0" />
   </ItemGroup>
 
@@ -25,5 +28,8 @@
     <RazorCompileOnBuild>false</RazorCompileOnBuild>
     <RazorCompileOnPublish>false</RazorCompileOnPublish>
   </PropertyGroup>
-  
+  <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
+		<Exec WorkingDirectory="$(ProjectDir)" Command="npm install" />
+		<Exec WorkingDirectory="$(ProjectDir)" Command="npm run build-prod" />
+	</Target>
 </Project>

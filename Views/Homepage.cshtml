@@ -1,7 +1,28 @@
 ﻿@using Umbraco.Cms.Web.Common.PublishedModels;
-@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Homepage>
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
-@{
-	Layout = null;
-}
-<h2>@Model.Title</h2>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <base href="/">
+    <title>My Umbraco App</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="~/assets/main.css">
+
+    <!-- Insert any additional stylesheets or meta tags here -->
+</head>
+<body>
+    <!-- Render the Angular app root component -->
+    @* <app-root></app-root>
+    <!-- Load the required JavaScript files -->
+    <script src="~/runtime.js"></script>
+    <script src="~/polyfills.js"></script>
+    <script src="~/main.js"></script> *@
+
+    <div id="root"></div>
+    <script src="~/js/main.js"></script>
+    <!-- Insert any additional scripts here -->
+</body>
+</html>

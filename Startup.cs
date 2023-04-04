@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using System.Diagnostics;
+
 namespace MyCustomUmbracoProject
 {
     public class Startup
@@ -34,6 +37,10 @@ namespace MyCustomUmbracoProject
                 .AddWebsite()
                 .AddComposers()
                 .Build();
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "ClientApp/dist/umbraco-app";
+            });
         }
 
         /// <summary>
@@ -47,6 +54,7 @@ namespace MyCustomUmbracoProject
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseRouting();
 
             app.UseUmbraco()
                 .WithMiddleware(u =>
@@ -60,6 +68,58 @@ namespace MyCustomUmbracoProject
                     u.UseBackOfficeEndpoints();
                     u.UseWebsiteEndpoints();
                 });
+            app.UseDefaultFiles();
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                // FileProvider = new PhysicalFileProvider(
+                //    Path.Combine(env.ContentRootPath, "wwwroot/dist/client-app")),
+
+                FileProvider = new Microsoft.Extensions.FileProviders.PhysicalFileProvider(
+                               //   Path.Combine(env.ContentRootPath, "wwwroot/dist/umbraco-app")),
+                               Path.Combine(env.ContentRootPath, "ClientApp/dist/umbraco-app")),
+                RequestPath = "",
+                OnPrepareResponse = ctx =>
+                {
+                    // Set cache control header to allow caching of static files
+                    ctx.Context.Response.Headers.Append("Cache-Control", "public,max-age=31536000,immutable");
+                }
+            });
+            app.UseEndpoints(endpoints =>
+           {
+               endpoints.MapControllers();
+
+               endpoints.MapControllerRoute(
+               name: "Default",
+               pattern: "",
+               defaults: new { controller = "Home", action = "Index" });
+
+               //endpoints.MapFallbackToController("Index", "Home");
+
+
+               endpoints.MapFallbackToController("Index", "Home");
+           });
+
+
+            app.UseSpa(spa =>
+            {
+
+                spa.Options.SourcePath = "ClientApp";
+                if (env.IsDevelopment())
+                {
+
+                    spa.UseReactDevelopmentServer(npmScript: "start-dev");
+                }
+                else
+                {
+
+                    spa.UseReactDevelopmentServer(npmScript: "start-prod");
+
+                }
+            });
+
+
+
+
         }
     }
 }
