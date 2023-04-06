@@ -94,7 +94,9 @@ namespace MyCustomUmbracoProject
                defaults: new { controller = "Home", action = "Index" });
 
                //endpoints.MapFallbackToController("Index", "Home");
-
+               endpoints.MapControllerRoute(
+                               name: "default",
+                               pattern: "{controller}/{action=Index}/{id?}");
 
                endpoints.MapFallbackToController("Index", "Home");
            });

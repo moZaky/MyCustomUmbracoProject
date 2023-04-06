@@ -1,11 +1,11 @@
 import reactLogo from "./assets/react.svg";
 import viteLogo from "./assets/vite.png";
 import { HashRouter as Router, Routes, Route, Link } from "react-router-dom";
-import "./App.css";
 import { Home } from "./pages/Home";
 import { About } from "./pages/About";
 import { ContactUs } from "./pages/Contact";
 import { NotFound } from "./pages/NotFound";
+import "./App.css";
 
 export const App = () => {
   return (
@@ -33,10 +33,10 @@ export const App = () => {
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/about">About 2</Link>
+              <Link to="/about">About </Link>
             </li>
             <li>
-              <Link to="/contact">Contact 2</Link>
+              <Link to="/contact">Contact</Link>
             </li>
           </ul>
         </nav>
