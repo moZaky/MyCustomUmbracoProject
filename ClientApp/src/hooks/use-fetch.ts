@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useReducer, useRef } from 'react'
 
 interface State<T> {
-    data?: T
+    response?: T
     error?: Error
     loading: boolean;
-    runQuery: (params?: Record<string, any>) => void;
+    // runQuery: (params?: Record<string, any>) => void;
 }
 interface FetchOptions<T> {
     url?: string;
@@ -28,11 +28,11 @@ const useFetch = <T = unknown>({ url, options, runOnFirstRender = true }: FetchO
 
     const initialState: State<T> = {
         error: undefined,
-        data: undefined,
+        response: undefined,
         loading: false,
-        runQuery: () => (params?: Record<string, any> | undefined): void => {
+        // runQuery: () => (params?: Record<string, any> | undefined): void => {
 
-        }
+        // }
     }
 
     // Keep state logic separated
@@ -41,7 +41,7 @@ const useFetch = <T = unknown>({ url, options, runOnFirstRender = true }: FetchO
             case 'loading':
                 return { ...initialState, loading: true }
             case 'fetched':
-                return { ...initialState, data: action.payload, loading: false }
+                return { ...initialState, response: action.payload, loading: false }
             case 'error':
                 return { ...initialState, error: action.payload, loading: false }
             default:
@@ -58,7 +58,7 @@ const useFetch = <T = unknown>({ url, options, runOnFirstRender = true }: FetchO
     }, [url])
     const fetchData = async (url: string, params?: Record<string, any>) => {
         dispatch({ type: 'loading' })
-        debugger;
+
         // If a cache exists for this url, return it
         if (cache.current[url]) {
             dispatch({ type: 'fetched', payload: cache.current[url] })
@@ -100,7 +100,7 @@ const useFetch = <T = unknown>({ url, options, runOnFirstRender = true }: FetchO
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [url, runOnFirstRender])
 
-    return { data: state.data, loading: state.loading, error: state.error, runQuery: runQuery }
+    return { response: state.response, loading: state.loading, error: state.error, /*runQuery: runQuery */ }
 }
 
 export default useFetch

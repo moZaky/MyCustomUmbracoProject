@@ -7,7 +7,11 @@ import path from 'path';
 
 const root = path.join(__dirname, './');
 const main = path.resolve(__dirname, 'src', 'main.tsx');
-
+const outDir = path.join(root, "dist/umbraco-app");
+console.log('root', root);
+console.log('main', main);
+console.log('outDir', outDir);
+ 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => ({
   plugins: [react()],
@@ -23,8 +27,9 @@ export default defineConfig(({ command, mode }) => ({
   },
 
   build: {
-    outDir: './dist/umbraco-app',
-    minify: mode === 'development' ? false : 'terser',
+      //outDir: './dist/umbraco-app',
+      outDir: outDir,
+    //minify: mode === 'development' ? false : 'terser',
     brotliSize: false,
     manifest: false,
     sourcemap: command === 'serve' ? 'inline' : false,

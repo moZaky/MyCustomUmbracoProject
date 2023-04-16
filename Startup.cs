@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using MyCustomUmbracoProject.Interfaces;
+using MyCustomUmbracoProject.Services;
 using System.Diagnostics;
 
 namespace MyCustomUmbracoProject
@@ -41,6 +43,7 @@ namespace MyCustomUmbracoProject
             {
                 configuration.RootPath = "ClientApp/dist/umbraco-app";
             });
+            services.AddScoped<IContentService, ContentService>();
         }
 
         /// <summary>
